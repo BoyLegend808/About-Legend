@@ -70,8 +70,46 @@ window.addEventListener("scroll", () => {
   });
 });
 
-// Interactive Tilt effect for cards
+// Interactive Tilt and Parallax effect
+const heroVisual = document.querySelector('.hero-visual');
+const heroPortraitWrap = document.querySelector('.hero-portrait-wrap');
+
+if (heroVisual && heroPortraitWrap) {
+    heroVisual.addEventListener('mousemove', (e) => {
+        const rect = heroVisual.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        
+        const moveX = (x - centerX) / 20;
+        const moveY = (y - centerY) / 20;
+        
+        heroPortraitWrap.style.transform = `perspective(1000px) rotateY(${moveX}deg) rotateX(${-moveY}deg) scale(1.05)`;
+        
+        // Parallax tags
+        document.querySelectorAll('.hero-tag').forEach((tag, index) => {
+            const speed = (index + 1) * 15;
+            const tx = (x - centerX) / speed;
+            const ty = (y - centerY) / speed;
+            tag.style.transform = `translate(${tx}px, ${ty}px)`;
+        });
+    });
+    
+    heroVisual.addEventListener('mouseleave', () => {
+        heroPortraitWrap.style.transform = `perspective(1000px) rotateY(-10deg) rotateX(5deg) scale(1)`;
+        document.querySelectorAll('.hero-tag').forEach(tag => {
+            tag.style.transform = `translate(0, 0)`;
+        });
+    });
+}
+
+// Card Tilt
 document.querySelectorAll('.project-card').forEach(card => {
+    const inner = card.querySelector('.card-inner');
+    if(!inner) return;
+    
     card.addEventListener('mousemove', (e) => {
         const rect = card.getBoundingClientRect();
         const x = e.clientX - rect.left;
@@ -83,10 +121,10 @@ document.querySelectorAll('.project-card').forEach(card => {
         const rotateX = (y - centerY) / 10;
         const rotateY = (centerX - x) / 10;
         
-        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-10px) scale(1.02)`;
+        inner.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-10px)`;
     });
     
     card.addEventListener('mouseleave', () => {
-        card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0) scale(1)`;
+        inner.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0)`;
     });
 });
