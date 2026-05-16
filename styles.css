@@ -355,8 +355,18 @@ main,
 /* ── Hero visual ── */
 .hero-visual {
   position: relative;
-  display: grid;
-  place-items: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.hero-portrait-float {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  animation: hero-float 6s ease-in-out infinite;
+  will-change: transform;
 }
 
 .hero-portrait-wrap {
@@ -371,12 +381,11 @@ main,
   position: relative;
   z-index: 2;
   will-change: transform;
-  animation: hero-float 6s ease-in-out infinite;
 }
 
 @keyframes hero-float {
-  0%, 100% { transform: translateY(0) rotateY(-5deg); }
-  50% { transform: translateY(-20px) rotateY(5deg); }
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
 }
 
 .hero-portrait {
