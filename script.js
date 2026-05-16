@@ -18,8 +18,9 @@ navLinks.forEach(link => {
     const targetId = link.getAttribute('href');
     const targetSection = document.querySelector(targetId);
     if (targetSection) {
+      const offsetTop = targetSection.offsetTop - 100;
       window.scrollTo({
-        top: targetSection.offsetTop - 80,
+        top: offsetTop,
         behavior: 'smooth'
       });
     }
@@ -49,7 +50,7 @@ projectImages.forEach((img) => {
   });
 });
 
-// Intersection Observer for Reveal items (optimized)
+// Intersection Observer for Reveal items
 if (revealItems.length) {
   const observer = new IntersectionObserver(
     (entries) => {
@@ -66,29 +67,22 @@ if (revealItems.length) {
   revealItems.forEach((item) => observer.observe(item));
 }
 
-// Active link highlighting on scroll (throttled)
-let isScrolling = false;
+// Active link highlighting on scroll
 window.addEventListener("scroll", () => {
-  if (!isScrolling) {
-    window.requestAnimationFrame(() => {
-      let current = "";
-      sections.forEach((section) => {
-        const sectionTop = section.offsetTop;
-        if (pageYOffset >= sectionTop - 150) {
-          current = section.getAttribute("id");
-        }
-      });
+  let current = "";
+  sections.forEach((section) => {
+    const sectionTop = section.offsetTop;
+    if (pageYOffset >= sectionTop - 200) {
+      current = section.getAttribute("id");
+    }
+  });
 
-      navLinks.forEach((link) => {
-        link.classList.remove("active");
-        if (link.getAttribute("href").includes(current)) {
-          link.classList.add("active");
-        }
-      });
-      isScrolling = false;
-    });
-    isScrolling = true;
-  }
+  navLinks.forEach((link) => {
+    link.classList.remove("active");
+    if (link.getAttribute("href").includes(current)) {
+      link.classList.add("active");
+    }
+  });
 });
 
 // Optimized Parallax for Hero
@@ -97,32 +91,20 @@ const heroPortraitWrap = document.querySelector('.hero-portrait-wrap');
 
 if (heroVisual && heroPortraitWrap && window.innerWidth > 1024) {
     heroVisual.addEventListener('mousemove', (e) => {
-        window.requestAnimationFrame(() => {
-            const rect = heroVisual.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
-            
-            const moveX = (x - centerX) / 30;
-            const moveY = (y - centerY) / 30;
-            
-            heroPortraitWrap.style.transform = `perspective(1000px) rotateY(${moveX}deg) rotateX(${-moveY}deg)`;
-            
-            document.querySelectorAll('.hero-tag').forEach((tag, index) => {
-                const speed = (index + 1) * 25;
-                const tx = (x - centerX) / speed;
-                const ty = (y - centerY) / speed;
-                tag.style.transform = `translate(${tx}px, ${ty}px)`;
-            });
-        });
+        const rect = heroVisual.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        
+        const moveX = (x - centerX) / 40;
+        const moveY = (y - centerY) / 40;
+        
+        heroPortraitWrap.style.transform = `perspective(1000px) rotateY(${moveX}deg) rotateX(${-moveY}deg)`;
     });
     
     heroVisual.addEventListener('mouseleave', () => {
-        heroPortraitWrap.style.transform = `perspective(1000px) rotateY(-10deg) rotateX(5deg)`;
-        document.querySelectorAll('.hero-tag').forEach(tag => {
-            tag.style.transform = `translate(0, 0)`;
-        });
+        heroPortraitWrap.style.transform = `perspective(1000px) rotateY(0deg) rotateX(0deg)`;
     });
 }
