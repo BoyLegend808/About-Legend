@@ -11,6 +11,21 @@ if (yearEl) {
   yearEl.textContent = new Date().getFullYear();
 }
 
+// Smooth Scrolling for Navigation
+navLinks.forEach(link => {
+  link.addEventListener('click', (e) => {
+    e.preventDefault();
+    const targetId = link.getAttribute('href');
+    const targetSection = document.querySelector(targetId);
+    if (targetSection) {
+      window.scrollTo({
+        top: targetSection.offsetTop - 80,
+        behavior: 'smooth'
+      });
+    }
+  });
+});
+
 // Contact button interaction
 if (contactBtn && helloMessage) {
   contactBtn.addEventListener("click", () => {
@@ -34,7 +49,7 @@ projectImages.forEach((img) => {
   });
 });
 
-// Intersection Observer for Reveal items
+// Intersection Observer for Reveal items (optimized)
 if (revealItems.length) {
   const observer = new IntersectionObserver(
     (entries) => {
@@ -45,86 +60,69 @@ if (revealItems.length) {
         }
       });
     },
-    { threshold: 0.15 }
+    { threshold: 0.1 }
   );
 
   revealItems.forEach((item) => observer.observe(item));
 }
 
-// Active link highlighting on scroll
+// Active link highlighting on scroll (throttled)
+let isScrolling = false;
 window.addEventListener("scroll", () => {
-  let current = "";
-  sections.forEach((section) => {
-    const sectionTop = section.offsetTop;
-    const sectionHeight = section.clientHeight;
-    if (pageYOffset >= sectionTop - 150) {
-      current = section.getAttribute("id");
-    }
-  });
+  if (!isScrolling) {
+    window.requestAnimationFrame(() => {
+      let current = "";
+      sections.forEach((section) => {
+        const sectionTop = section.offsetTop;
+        if (pageYOffset >= sectionTop - 150) {
+          current = section.getAttribute("id");
+        }
+      });
 
-  navLinks.forEach((link) => {
-    link.classList.remove("active");
-    if (link.getAttribute("href").includes(current)) {
-      link.classList.add("active");
-    }
-  });
+      navLinks.forEach((link) => {
+        link.classList.remove("active");
+        if (link.getAttribute("href").includes(current)) {
+          link.classList.add("active");
+        }
+      });
+      isScrolling = false;
+    });
+    isScrolling = true;
+  }
 });
 
-// Interactive Tilt and Parallax effect
+// Optimized Parallax for Hero
 const heroVisual = document.querySelector('.hero-visual');
 const heroPortraitWrap = document.querySelector('.hero-portrait-wrap');
 
-if (heroVisual && heroPortraitWrap) {
+if (heroVisual && heroPortraitWrap && window.innerWidth > 1024) {
     heroVisual.addEventListener('mousemove', (e) => {
-        const rect = heroVisual.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-        
-        const moveX = (x - centerX) / 20;
-        const moveY = (y - centerY) / 20;
-        
-        heroPortraitWrap.style.transform = `perspective(1000px) rotateY(${moveX}deg) rotateX(${-moveY}deg) scale(1.05)`;
-        
-        // Parallax tags
-        document.querySelectorAll('.hero-tag').forEach((tag, index) => {
-            const speed = (index + 1) * 15;
-            const tx = (x - centerX) / speed;
-            const ty = (y - centerY) / speed;
-            tag.style.transform = `translate(${tx}px, ${ty}px)`;
+        window.requestAnimationFrame(() => {
+            const rect = heroVisual.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            
+            const moveX = (x - centerX) / 30;
+            const moveY = (y - centerY) / 30;
+            
+            heroPortraitWrap.style.transform = `perspective(1000px) rotateY(${moveX}deg) rotateX(${-moveY}deg)`;
+            
+            document.querySelectorAll('.hero-tag').forEach((tag, index) => {
+                const speed = (index + 1) * 25;
+                const tx = (x - centerX) / speed;
+                const ty = (y - centerY) / speed;
+                tag.style.transform = `translate(${tx}px, ${ty}px)`;
+            });
         });
     });
     
     heroVisual.addEventListener('mouseleave', () => {
-        heroPortraitWrap.style.transform = `perspective(1000px) rotateY(-10deg) rotateX(5deg) scale(1)`;
+        heroPortraitWrap.style.transform = `perspective(1000px) rotateY(-10deg) rotateX(5deg)`;
         document.querySelectorAll('.hero-tag').forEach(tag => {
             tag.style.transform = `translate(0, 0)`;
         });
     });
 }
-
-// Card Tilt
-document.querySelectorAll('.project-card').forEach(card => {
-    const inner = card.querySelector('.card-inner');
-    if(!inner) return;
-    
-    card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-        
-        const rotateX = (y - centerY) / 10;
-        const rotateY = (centerX - x) / 10;
-        
-        inner.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-10px)`;
-    });
-    
-    card.addEventListener('mouseleave', () => {
-        inner.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0)`;
-    });
-});
