@@ -10,6 +10,7 @@
   --accent:        #5b68dd;
   --accent-deep:   #434fc2;
   --accent-rgb:    91, 104, 221;
+  --grid-color:    rgba(91, 104, 221, 0.05);
 
   --shadow-sm:  0 4px 6px -1px rgba(0,0,0,.07);
   --shadow-md:  0 10px 15px -3px rgba(0,0,0,.08);
@@ -58,8 +59,11 @@ body::before {
   position: fixed;
   inset: 0;
   background:
+    linear-gradient(var(--grid-color) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-color) 1px, transparent 1px),
     radial-gradient(circle at 10% 20%, rgba(var(--accent-rgb), .07) 0%, transparent 45%),
     radial-gradient(circle at 90% 80%, rgba(var(--accent-rgb), .06) 0%, transparent 45%);
+  background-size: 40px 40px, 40px 40px, 100%, 100%;
   pointer-events: none;
   z-index: -2;
 }
@@ -238,10 +242,12 @@ main,
 
 /* Hero uses h1 now for correct heading hierarchy */
 .hero h1 {
-  font-size: clamp(2.2rem, 5vw, 3.8rem);
+  font-size: clamp(2.5rem, 6vw, 4.2rem);
   font-weight: 800;
+  line-height: 1.05;
   margin-bottom: 1.5rem;
   color: var(--text);
+  letter-spacing: -0.04em;
 }
 
 .text-gradient {
@@ -315,11 +321,28 @@ main,
   display: flex;
   gap: 3rem;
 }
+.stat-card {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(10px);
+  padding: 1.25rem 1.5rem;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+  background: #fff;
+  border-color: var(--accent);
+  box-shadow: var(--shadow-md);
+}
+
 .stat-card dt {
   font-family: var(--font-heading);
   font-size: 2.1rem;
   font-weight: 800;
-  color: var(--text);
+  color: var(--accent);
   line-height: 1;
 }
 .stat-card dd {
@@ -342,13 +365,18 @@ main,
   aspect-ratio: 4 / 5;
   border-radius: var(--radius-lg);
   overflow: hidden;
-  box-shadow: var(--shadow-3d);
+  box-shadow: 0 40px 80px -15px rgba(var(--accent-rgb), .25);
   background: var(--line);
-  border: 1px solid var(--line);
+  border: 1px solid rgba(255, 255, 255, 0.4);
   position: relative;
   z-index: 2;
   will-change: transform;
-  transition: transform 0.1s linear;
+  animation: hero-float 6s ease-in-out infinite;
+}
+
+@keyframes hero-float {
+  0%, 100% { transform: translateY(0) rotateY(-5deg); }
+  50% { transform: translateY(-20px) rotateY(5deg); }
 }
 
 .hero-portrait {
@@ -714,4 +742,50 @@ main,
     opacity: 1;
     transform: none;
   }
+}
+
+/* ============================================================
+   SCROLL INDICATOR
+   ============================================================ */
+.scroll-indicator {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  opacity: 0.5;
+  pointer-events: none;
+  transition: var(--transition);
+}
+
+.mouse {
+  width: 22px;
+  height: 36px;
+  border: 2px solid var(--text);
+  border-radius: 20px;
+  position: relative;
+}
+
+.wheel {
+  width: 2px;
+  height: 7px;
+  background: var(--text);
+  position: absolute;
+  top: 7px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 2px;
+  animation: scroll-wheel 1.6s infinite;
+}
+
+@keyframes scroll-wheel {
+  0% { transform: translate(-50%, 0); opacity: 1; }
+  100% { transform: translate(-50%, 16px); opacity: 0; }
+}
+
+@media (max-width: 1024px) {
+  .scroll-indicator { display: none; }
 }
