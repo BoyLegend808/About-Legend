@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Full Stack Developer Portfolio</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <header class="site-header" id="home">
+    <nav class="site-nav" aria-label="Main navigation">
+      <h1 class="brand">My Portfolio</h1>
+      <ul class="nav-list">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+
+    <section class="hero reveal" aria-label="Hero section">
+      <div class="hero-copy">
+        <p class="hero-kicker">Full Stack Web Developer</p>
+        <h2>Let's Build Fast, Clean, and Modern Websites Together</h2>
+        <p>
+          I create responsive web products from frontend to backend that help brands
+          launch quickly and grow with confidence.
+        </p>
+        <div class="hero-actions">
+          <a class="btn" href="#contact">Let's Talk</a>
+          <a class="btn btn-ghost" href="#projects">See Projects</a>
+        </div>
+        <dl class="hero-stats">
+          <div>
+            <dt>3+</dt>
+            <dd>years building websites</dd>
+          </div>
+          <div>
+            <dt>20+</dt>
+            <dd>projects completed</dd>
+          </div>
+          <div>
+            <dt>100%</dt>
+            <dd>focus on user experience</dd>
+          </div>
+        </dl>
+      </div>
+
+      <figure class="hero-visual">
+        <div class="hero-portrait-wrap">
+        </div>
+        <figcaption class="visually-hidden">
+          Background-removed portrait for hero section.
+        </figcaption>
+        <p class="hero-tag tag-one">E-commerce</p>
+        <p class="hero-tag tag-two">Landing Pages</p>
+        <p class="hero-tag tag-three">Investment Sites</p>
+      </figure>
+    </section>
+  </header>
+
+  <main id="main-content">
+    <section id="about" class="section reveal">
+      <h2>About Me</h2>
+      <div class="about-content">
+        <div class="about-portrait-wrap">
+          <img class="about-portrait" src="WhatsApp Image 2026-02-21 at 7.59.00 PM.jpeg"
+            alt="Portrait of John Ugwuneke" />
+        </div>
+        <div class="about-text">
+
+          <p>My name is John Ugwuneke Chiemeziem. I am a student of Ebonyis State University. I am a Full Stack
+            Developer skilled in designing all types of websites ranging from Landing Pges To E-commerce sites.</p>
+
+          <p>
+            I design and develop modern web solutions that are fast, responsive, and easy to use.
+            I enjoy turning ideas into practical products and helping businesses grow online.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects" class="section reveal">
+      <h2>Projects</h2>
+      <p>
+        Below are some projects Succesfully developed and Deployed by me.
+      </p>
+
+      <div class="project-grid">
+        <article class="project-card">
+          <h3>Project One</h3>
+          <figure>
+            <img class="project-image" src="project-1.jpg" alt="Screenshot of project one" />
+            <div class="image-slot" hidden>Project image goes here</div>
+            <figcaption>Add your website screenshot here.</figcaption>
+          </figure>
+          <p>A short description of this project.</p>
+          <p><a href="#" target="_blank" rel="noopener noreferrer">Add project link</a></p>
+        </article>
+
+        <article class="project-card">
+          <h3>Project Two</h3>
+          <figure>
+            <img class="project-image" src="project-2.jpg" alt="Screenshot of project two" />
+            <div class="image-slot" hidden>Project image goes here</div>
+            <figcaption>Add your website screenshot here.</figcaption>
+          </figure>
+          <p>A short description of this project.</p>
+          <p><a href="#" target="_blank" rel="noopener noreferrer">Add project link</a></p>
+        </article>
+
+        <article class="project-card">
+          <h3>Project Three</h3>
+          <figure>
+            <img class="project-image" src="project-3.jpg" alt="Screenshot of project three" />
+            <div class="image-slot" hidden>Project image goes here</div>
+            <figcaption>Add your website screenshot here.</figcaption>
+          </figure>
+          <p>A short description of this project.</p>
+          <p><a href="#" target="_blank" rel="noopener noreferrer">Add project link</a></p>
+        </article>
+      </div>
+
+      <aside class="service-listing" aria-labelledby="service-title">
+        <h3 id="service-title">Websites I Can Build</h3>
+        <ul>
+          <li>E-commerce websites</li>
+          <li>Landing pages</li>
+          <li>Investment websites</li>
+          <li>Business portfolio websites</li>
+          <li>Booking and service websites</li>
+          <li>Blog and content websites</li>
+        </ul>
+      </aside>
+    </section>
+
+    <section id="contact" class="section reveal">
+      <h2>Contact</h2>
+      <p>If you want to work with me, send me a message.</p>
+      <address>
+        <p>Email: <a href="mailto:youremail@example.com">ugwunekejohn@gmail.com</a></p>
+        <p>Phone: <a href="tel:+10000000000">09160641195</a></p>
+      </address>
+      <button type="button" id="contactBtn">Say Hello</button>
+      <p id="helloMessage" class="hello-message" hidden>Thanks for visiting my portfolio.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; <span id="year"></span> My Portfolio. All rights reserved.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
