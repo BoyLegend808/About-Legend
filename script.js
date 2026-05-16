@@ -1,110 +1,141 @@
-const yearEl = document.getElementById("year");
-const contactBtn = document.getElementById("contactBtn");
-const helloMessage = document.getElementById("helloMessage");
-const projectImages = document.querySelectorAll(".project-image");
-const revealItems = document.querySelectorAll(".reveal");
-const navLinks = document.querySelectorAll(".nav-list a");
-const sections = document.querySelectorAll("section");
+/* ============================================================
+   script.js – Portfolio interactions
+   ============================================================ */
 
-// Set year
-if (yearEl) {
-  yearEl.textContent = new Date().getFullYear();
-}
+(function () {
+  "use strict";
 
-// Smooth Scrolling for Navigation
-navLinks.forEach(link => {
-  link.addEventListener('click', (e) => {
-    e.preventDefault();
-    const targetId = link.getAttribute('href');
-    const targetSection = document.querySelector(targetId);
-    if (targetSection) {
-      const offsetTop = targetSection.offsetTop - 100;
-      window.scrollTo({
-        top: offsetTop,
-        behavior: 'smooth'
-      });
-    }
+  // ── DOM refs ──────────────────────────────────────────────
+  const yearEl        = document.getElementById("year");
+  const contactBtn    = document.getElementById("contactBtn");
+  const helloMessage  = document.getElementById("helloMessage");
+  const navLinks      = document.querySelectorAll(".nav-list a");
+  const sections      = document.querySelectorAll("section[id]");
+  const revealItems   = document.querySelectorAll(".reveal");
+  const heroVisual    = document.querySelector(".hero-visual");
+  const portraitWrap  = document.querySelector(".hero-portrait-wrap");
+
+  // ── Year ──────────────────────────────────────────────────
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+  // ── Smooth-scroll nav links ───────────────────────────────
+  navLinks.forEach((link) => {
+    link.addEventListener("click", (e) => {
+      const href = link.getAttribute("href");
+      if (!href.startsWith("#")) return;
+      const target = document.querySelector(href);
+      if (!target) return;
+      e.preventDefault();
+      const offset = target.getBoundingClientRect().top + window.scrollY - 90;
+      window.scrollTo({ top: offset, behavior: "smooth" });
+    });
   });
-});
 
-// Contact button interaction
-if (contactBtn && helloMessage) {
-  contactBtn.addEventListener("click", () => {
-    helloMessage.hidden = false;
-    contactBtn.textContent = "Message Sent!";
-    setTimeout(() => {
+  // ── Contact button ────────────────────────────────────────
+  let contactTimer = null;
+  if (contactBtn && helloMessage) {
+    contactBtn.addEventListener("click", () => {
+      helloMessage.hidden = false;
+      contactBtn.textContent = "Message Sent! ✓";
+      contactBtn.disabled = true;
+
+      clearTimeout(contactTimer);
+      contactTimer = setTimeout(() => {
         helloMessage.hidden = true;
         contactBtn.textContent = "Say Hello";
-    }, 3000);
-  });
-}
+        contactBtn.disabled = false;
+      }, 3500);
+    });
+  }
 
-// Image error handling
-projectImages.forEach((img) => {
-  img.addEventListener("error", () => {
-    img.hidden = true;
-    const slot = img.nextElementSibling;
-    if (slot) {
-      slot.hidden = false;
-    }
-  });
-});
+  // ── Reveal on scroll (IntersectionObserver) ───────────────
+  if (revealItems.length && "IntersectionObserver" in window) {
+    const revealObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: "0px 0px -40px 0px" }
+    );
+    revealItems.forEach((el) => revealObserver.observe(el));
+  } else {
+    // Fallback: show everything immediately
+    revealItems.forEach((el) => el.classList.add("is-visible"));
+  }
 
-// Intersection Observer for Reveal items
-if (revealItems.length) {
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("is-visible");
-          observer.unobserve(entry.target);
-        }
-      });
+  // ── Active nav link on scroll ─────────────────────────────
+  // Uses rAF + a flag to avoid running on every pixel of scroll.
+  let scrollScheduled = false;
+
+  function updateActiveLink() {
+    scrollScheduled = false;
+    const scrollY = window.scrollY;
+    let current = "";
+
+    sections.forEach((section) => {
+      if (scrollY >= section.offsetTop - 120) {
+        current = section.id;
+      }
+    });
+
+    navLinks.forEach((link) => {
+      const matches = link.getAttribute("href") === `#${current}`;
+      link.classList.toggle("active", matches);
+    });
+  }
+
+  window.addEventListener(
+    "scroll",
+    () => {
+      if (!scrollScheduled) {
+        scrollScheduled = true;
+        requestAnimationFrame(updateActiveLink);
+      }
     },
-    { threshold: 0.1 }
+    { passive: true }
   );
 
-  revealItems.forEach((item) => observer.observe(item));
-}
+  // Run once on load to highlight the right link
+  updateActiveLink();
 
-// Active link highlighting on scroll
-window.addEventListener("scroll", () => {
-  let current = "";
-  sections.forEach((section) => {
-    const sectionTop = section.offsetTop;
-    if (pageYOffset >= sectionTop - 200) {
-      current = section.getAttribute("id");
-    }
-  });
+  // ── 3D parallax tilt on hero portrait ────────────────────
+  function setupParallax() {
+    if (!heroVisual || !portraitWrap) return;
+    // Only attach on wide viewports
+    if (window.innerWidth <= 1024) return;
 
-  navLinks.forEach((link) => {
-    link.classList.remove("active");
-    if (link.getAttribute("href").includes(current)) {
-      link.classList.add("active");
-    }
-  });
-});
+    let tiltActive = true;
 
-// Optimized Parallax for Hero
-const heroVisual = document.querySelector('.hero-visual');
-const heroPortraitWrap = document.querySelector('.hero-portrait-wrap');
+    heroVisual.addEventListener("mousemove", (e) => {
+      if (!tiltActive) return;
+      const { left, top, width, height } = heroVisual.getBoundingClientRect();
+      const x = ((e.clientX - left) / width  - 0.5) * 2; // –1 → +1
+      const y = ((e.clientY - top)  / height - 0.5) * 2;
 
-if (heroVisual && heroPortraitWrap && window.innerWidth > 1024) {
-    heroVisual.addEventListener('mousemove', (e) => {
-        const rect = heroVisual.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-        
-        const moveX = (x - centerX) / 40;
-        const moveY = (y - centerY) / 40;
-        
-        heroPortraitWrap.style.transform = `perspective(1000px) rotateY(${moveX}deg) rotateX(${-moveY}deg)`;
+      portraitWrap.style.transform =
+        `perspective(900px) rotateY(${x * 6}deg) rotateX(${-y * 6}deg)`;
     });
-    
-    heroVisual.addEventListener('mouseleave', () => {
-        heroPortraitWrap.style.transform = `perspective(1000px) rotateY(0deg) rotateX(0deg)`;
+
+    heroVisual.addEventListener("mouseleave", () => {
+      portraitWrap.style.transform =
+        "perspective(900px) rotateY(0deg) rotateX(0deg)";
     });
-}
+
+    // Disable tilt when viewport shrinks below threshold
+    const mq = window.matchMedia("(max-width: 1024px)");
+    const onBreakpoint = (e) => {
+      tiltActive = !e.matches;
+      if (e.matches) {
+        portraitWrap.style.transform = "none";
+      }
+    };
+    mq.addEventListener("change", onBreakpoint);
+  }
+
+  setupParallax();
+
+})();
