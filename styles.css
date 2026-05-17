@@ -380,12 +380,12 @@ main {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 20%; /* Centers the crop perfectly on your face and sitting posture */
-  transform: scale(1.4); /* Zoom in a little bit more */
+  object-position: center 15%; /* Centers the crop perfectly on your face and upper body at high zoom */
+  transform: scale(1.65); /* Zoom in even more */
   transition: transform .5s cubic-bezier(.4, 0, .2, 1);
 }
 .about-portrait-wrap:hover .about-portrait {
-  transform: scale(1.5); /* Smooth micro-zoom transition */
+  transform: scale(1.75); /* Smooth micro-zoom transition */
 }
 .about-text p   { color: var(--muted); margin-bottom: 1rem; }
 .about-text strong { color: var(--text); }
