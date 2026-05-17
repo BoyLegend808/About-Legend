@@ -2,20 +2,20 @@
    DESIGN TOKENS
    ============================================================ */
 :root {
-  --bg:            #f8fafc;
-  --card:          #ffffff;
-  --text:          #0f172a;
-  --muted:         #64748b;
-  --line:          #e2e8f0;
-  --accent:        #5b68dd;
-  --accent-deep:   #434fc2;
-  --accent-rgb:    91, 104, 221;
-  --grid-color:    rgba(91, 104, 221, 0.05);
+  --bg:            #090a0f; /* Deep space slate black */
+  --card:          rgba(18, 20, 29, 0.75); /* Translucent premium card glass */
+  --text:          #f8fafc; /* Crisp off-white */
+  --muted:         #94a3b8; /* Cool neutral slate grey */
+  --line:          rgba(255, 255, 255, 0.08); /* Minimalist divider lines */
+  --accent:        #38bdf8; /* Vibrant neon sky-blue (from inspiration image) */
+  --accent-deep:   #0284c7;
+  --accent-rgb:    56, 189, 248;
+  --grid-color:    rgba(56, 189, 248, 0.03); /* Electric neon mesh */
 
-  --shadow-sm:  0 4px 6px -1px rgba(0,0,0,.07);
-  --shadow-md:  0 10px 15px -3px rgba(0,0,0,.08);
-  --shadow-lg:  0 20px 25px -5px rgba(0,0,0,.10);
-  --shadow-3d:  0 25px 50px -12px rgba(0,0,0,.15);
+  --shadow-sm:  0 4px 6px -1px rgba(0,0,0,.35);
+  --shadow-md:  0 10px 15px -3px rgba(0,0,0,.45);
+  --shadow-lg:  0 20px 25px -5px rgba(0,0,0,.55);
+  --shadow-3d:  0 25px 50px -12px rgba(0,0,0,.65);
 
   --font-heading: 'Syne',    sans-serif;
   --font-body:    'Figtree', sans-serif;
@@ -156,7 +156,7 @@ main,
   align-items: center;
   justify-content: space-between;
   padding: 0.75rem 2rem;
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(9, 10, 15, 0.85);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--line);
@@ -215,6 +215,61 @@ main,
 .reveal.is-visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* Staggered Text & Element Reveals */
+.reveal-title {
+  overflow: hidden;
+}
+.reveal-title span {
+  display: inline-block;
+  transform: translateY(105%);
+  transition: transform 0.95s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+.reveal.is-visible .reveal-title span {
+  transform: translateY(0);
+}
+
+/* Hidden state for cards in dynamic stagger sections */
+.reveal .project-card,
+.reveal .service-card,
+.reveal .stat-card {
+  opacity: 0;
+  transform: translateY(30px) translate3d(0, 0, 0);
+  will-change: transform, opacity;
+  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Fade and lift-up stagger elements on parent enter */
+.reveal.is-visible .project-card,
+.reveal.is-visible .service-card,
+.reveal.is-visible .stat-card {
+  opacity: 1;
+  transform: translateY(0) translate3d(0, 0, 0);
+}
+
+/* Transition Delays for Stagger Effect */
+.reveal.is-visible .project-card:nth-child(1),
+.reveal.is-visible .service-card:nth-child(1),
+.reveal.is-visible .stat-card:nth-child(1) {
+  transition-delay: 100ms;
+}
+.reveal.is-visible .project-card:nth-child(2),
+.reveal.is-visible .service-card:nth-child(2),
+.reveal.is-visible .stat-card:nth-child(2) {
+  transition-delay: 200ms;
+}
+.reveal.is-visible .project-card:nth-child(3),
+.reveal.is-visible .service-card:nth-child(3),
+.reveal.is-visible .stat-card:nth-child(3) {
+  transition-delay: 300ms;
+}
+.reveal.is-visible .project-card:nth-child(4),
+.reveal.is-visible .service-card:nth-child(4),
+.reveal.is-visible .stat-card:nth-child(4) {
+  transition-delay: 400ms;
 }
 
 /* ============================================================
@@ -322,18 +377,18 @@ main,
   gap: 3rem;
 }
 .stat-card {
-  background: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.02);
   backdrop-filter: blur(10px);
   padding: 1.25rem 1.5rem;
   border-radius: var(--radius-md);
-  border: 1px solid rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.05);
   box-shadow: var(--shadow-sm);
   transition: var(--transition);
 }
 
 .stat-card:hover {
   transform: translateY(-5px);
-  background: #fff;
+  background: rgba(255, 255, 255, 0.05);
   border-color: var(--accent);
   box-shadow: var(--shadow-md);
 }
@@ -365,8 +420,11 @@ main,
   width: 100%;
   display: flex;
   justify-content: center;
-  animation: hero-float 6s ease-in-out infinite;
+  /* Static state: float animation disabled */
   will-change: transform;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 .hero-portrait-wrap {
@@ -381,11 +439,16 @@ main,
   position: relative;
   z-index: 2;
   will-change: transform;
+  transform: perspective(900px) rotateX(0deg) rotateY(0deg) translate3d(0, 0, 0);
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transition: none; /* Disable transitions to avoid conflicts with JS frame updates */
 }
 
 @keyframes hero-float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-20px); }
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(0, -20px, 0); }
 }
 
 .hero-portrait {
@@ -393,6 +456,9 @@ main,
   height: 100%;
   object-fit: cover;
   object-position: center top;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translate3d(0, 0, 0);
 }
 
 /* Subtle colour-tint overlay on portrait */
@@ -419,6 +485,7 @@ main,
   color: var(--text);
   z-index: 3;
   border: 1px solid rgba(255,255,255,.8);
+  pointer-events: none; /* Prevent hover loops and flickering */
 }
 .tag-one   { top: 14%;    right: -6%; }
 .tag-two   { top: 50%;    left: -11%; }
@@ -475,8 +542,9 @@ main,
   margin-top: 2rem;
 }
 .badge {
-  background: #eef0fb;
+  background: rgba(56, 189, 248, 0.08);
   color: var(--accent);
+  border: 1px solid rgba(56, 189, 248, 0.15);
   padding: 0.45rem 1.2rem;
   border-radius: var(--radius-pill);
   font-size: 0.82rem;
@@ -499,15 +567,42 @@ main,
   border-radius: var(--radius-lg);
   overflow: hidden;
   border: 1px solid var(--line);
-  transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1),
-              box-shadow 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transition: box-shadow 0.45s cubic-bezier(0.2, 0.8, 0.2, 1),
+              border-color 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
   height: 100%;
   display: flex;
   flex-direction: column;
+  position: relative;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  will-change: transform;
 }
 .project-card:hover .card-inner {
-  transform: translateY(-10px);
   box-shadow: var(--shadow-3d);
+  border-color: rgba(var(--accent-rgb), 0.35);
+}
+
+/* Glassmorphic glint/shimmer effect */
+.card-inner::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    115deg,
+    transparent 35%,
+    rgba(255, 255, 255, 0.3) 48%,
+    rgba(255, 255, 255, 0.4) 50%,
+    rgba(255, 255, 255, 0.3) 52%,
+    transparent 65%
+  );
+  transform: translateX(-105%) translateZ(15px);
+  transition: transform 0.85s cubic-bezier(0.25, 1, 0.5, 1);
+  pointer-events: none;
+  z-index: 10;
+}
+.project-card:hover .card-inner::after {
+  transform: translateX(105%) translateZ(15px);
 }
 
 /* Image container with fallback */
@@ -516,14 +611,20 @@ main,
   aspect-ratio: 16 / 10;
   background: #f0f2ff;
   overflow: hidden;
+  transform-style: preserve-3d;
 }
 .project-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.5s ease;
+  transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
-.project-card:hover .project-image { transform: scale(1.04); }
+.project-card:hover .project-image {
+  transform: scale(1.1) translateZ(0); /* 10% scale up hardware accelerated */
+}
 
 /* Fallback placeholder shown via JS when image errors */
 .img-placeholder {
@@ -688,9 +789,9 @@ main,
   .tag-two   { top: 50%; left: 0; }
   .tag-three { bottom: 6%; right: 2%; }
 
-  .about-content {
+  .about-content-grid {
     grid-template-columns: 1fr;
-    text-align: center;
+    gap: 3rem;
   }
   .about-portrait-wrap { max-width: 300px; margin-inline: auto; }
   .experience-badges   { justify-content: center; }
@@ -720,15 +821,27 @@ main,
 
 @media (max-width: 480px) {
   .site-nav {
-    padding: 0.75rem 0.5rem;
+    padding: 0.5rem 0.75rem;
   }
 
   .nav-container {
-    flex-direction: column;
-    gap: 0.5rem;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 0.25rem;
+  }
+
+  .brand {
+    font-size: 1.1rem;
   }
   
-  .nav-list { flex-wrap: wrap; justify-content: center; gap: 0.25rem; }
+  .nav-list {
+    gap: 0.15rem;
+  }
+
+  .nav-list a {
+    padding: 0.35rem 0.55rem;
+    font-size: 0.75rem;
+  }
 
   .hero h1 { font-size: 2rem; }
   .hero-actions { flex-direction: column; }
@@ -798,3 +911,253 @@ main,
 @media (max-width: 1024px) {
   .scroll-indicator { display: none; }
 }
+
+/* ============================================================
+   SCROLL PROGRESS BAR & TYPEWRITER MICRO-INTERACTIONS
+   ============================================================ */
+.scroll-progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent) 0%, #a855f7 100%);
+  width: 0%;
+  z-index: 9999;
+  pointer-events: none;
+  will-change: width;
+}
+
+.typewriter-cursor {
+  font-weight: 300;
+  color: var(--accent);
+  margin-left: 2px;
+  animation: blink-cursor 0.75s step-end infinite;
+  display: inline-block;
+}
+
+@keyframes blink-cursor {
+  from, to { color: transparent }
+  50% { color: var(--accent) }
+}
+
+/* ============================================================
+   INSPIRATION ELEMENTS: TIMELINE, SKILLS SLIDERS, DETAILS
+   ============================================================ */
+
+/* Details with lines (Inspiration Image, panel 2) */
+.about-details {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+}
+.details-email {
+  color: var(--accent);
+  font-weight: 700;
+  font-size: 1.1rem;
+  transition: color 0.3s ease;
+}
+.details-email:hover {
+  color: var(--text);
+}
+.details-location {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: var(--muted);
+  font-size: 0.95rem;
+  font-weight: 500;
+  width: 100%;
+  position: relative;
+}
+.details-location::before,
+.details-location::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--line), transparent);
+}
+
+/* Three columns layout for the expanded About section */
+.about-content-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr 0.9fr;
+  gap: 3.5rem;
+  align-items: start;
+  margin-top: 3rem;
+}
+
+/* Column Header styled like the inspiration image (underlined headings) */
+.col-header {
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text);
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.col-header::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, var(--accent), transparent);
+}
+
+/* Timeline Column (Inspiration Image, panel 3) */
+.journey-timeline {
+  position: relative;
+  padding-left: 2rem;
+  border-left: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+.timeline-item {
+  position: relative;
+  will-change: transform, opacity;
+}
+.timeline-dot {
+  position: absolute;
+  left: -2.35rem;
+  top: 0.3rem;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 10px rgba(var(--accent-rgb), 0.6);
+  border: 2px solid var(--bg);
+  z-index: 2;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+.timeline-item:hover .timeline-dot {
+  transform: scale(1.4);
+  background: #fff;
+}
+.timeline-date {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--accent);
+  letter-spacing: 0.05em;
+  margin-bottom: 0.25rem;
+}
+.timeline-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 0.1rem;
+}
+.timeline-org {
+  font-size: 0.82rem;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+/* Skills Sliders (Inspiration Image, panel 3) */
+.skills-sliders {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.skill-slider-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+.skill-slider-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text);
+}
+.skill-slider-track {
+  height: 4px;
+  background: var(--line);
+  border-radius: 2px;
+  position: relative;
+}
+.skill-slider-fill {
+  height: 100%;
+  background: var(--accent);
+  box-shadow: 0 0 6px rgba(var(--accent-rgb), 0.4);
+  border-radius: 2px;
+  position: relative;
+}
+.skill-slider-node {
+  position: absolute;
+  right: -5px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #fff;
+  border: 2.5px solid var(--accent);
+  box-shadow: 0 0 8px rgba(var(--accent-rgb), 0.8);
+  transition: transform 0.2s ease;
+}
+.skill-slider-item:hover .skill-slider-node {
+  transform: translateY(-50%) scale(1.3);
+}
+
+/* Hobbies circular icons block (Inspiration Image, panel 3) */
+.hobbies-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-top: 1rem;
+}
+.hobby-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  text-align: center;
+}
+.hobby-circle {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.03);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  transition: var(--transition);
+  color: var(--muted);
+}
+.hobby-item:hover .hobby-circle {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(var(--accent-rgb), 0.08);
+  transform: translateY(-3px) scale(1.05);
+}
+.hobby-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+/* Staggered Timeline Animation in Active reveals */
+.reveal .timeline-item {
+  opacity: 0;
+  transform: translateX(-15px) translate3d(0, 0, 0);
+  will-change: transform, opacity;
+  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal.is-visible .timeline-item {
+  opacity: 1;
+  transform: translateX(0) translate3d(0, 0, 0);
+}
+.reveal.is-visible .timeline-item:nth-child(1) { transition-delay: 100ms; }
+.reveal.is-visible .timeline-item:nth-child(2) { transition-delay: 200ms; }
+.reveal.is-visible .timeline-item:nth-child(3) { transition-delay: 300ms; }

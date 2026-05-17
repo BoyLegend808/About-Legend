@@ -16,6 +16,8 @@
 </head>
 
 <body>
+  <div id="scroll-progress" class="scroll-progress-bar" aria-hidden="true"></div>
+
   <!-- Ambient background orbs -->
   <div class="bg-orb orb-1" aria-hidden="true"></div>
   <div class="bg-orb orb-2" aria-hidden="true"></div>
@@ -42,7 +44,7 @@
     <section class="hero reveal" aria-label="Introduction">
       <div class="hero-copy">
         <p class="hero-kicker">Digital Architect &amp; Visionary</p>
-        <h1>I Build <span class="text-gradient">Experiences</span><br>That Shape the Future</h1>
+        <h1>I Build <span class="text-gradient" id="typewriter-text">Experiences</span><span class="typewriter-cursor" aria-hidden="true">|</span><br>That Shape the Future</h1>
         <p class="hero-desc">
           Transforming complex challenges into elegant digital solutions.
           Specialising in high-performance web applications that merge stunning
@@ -101,36 +103,152 @@
 
     <!-- About -->
     <section id="about" class="section reveal" aria-labelledby="about-heading">
-      <h2 id="about-heading">About Me</h2>
-      <div class="about-content">
-        <div class="about-portrait-wrap">
-          <img
-            class="about-portrait"
-            src="WhatsApp Image 2026-02-21 at 7.59.00 PM.jpeg"
-            alt="Portrait of John Ugwuneke Chiemeziem"
-            width="320"
-            height="400"
-            loading="lazy"
-          />
+      <h2 id="about-heading" class="reveal-title"><span>About Me</span></h2>
+      
+      <div class="about-content-grid">
+        <!-- Column 1: Bio & Details (Left Panel) -->
+        <div class="about-bio-panel">
+          <div class="about-portrait-wrap">
+            <img
+              class="about-portrait"
+              src="WhatsApp Image 2026-02-21 at 7.59.00 PM.jpeg"
+              alt="Portrait of John Ugwuneke Chiemeziem"
+              width="320"
+              height="400"
+              loading="lazy"
+            />
+          </div>
+          <div class="about-text" style="margin-top: 1.75rem;">
+            <p>My name is <strong>John Ugwuneke Chiemeziem</strong>. I am a student of
+              Ebonyi State University and a dedicated <strong>Full Stack Developer</strong>.</p>
+            <p>I specialise in designing high-performance digital solutions, ranging from
+              sleek Landing Pages to complex E-commerce ecosystems. My goal is to turn
+              visionary ideas into practical, scalable products that drive growth.</p>
+            <ul class="experience-badges" role="list">
+              <li class="badge">Frontend Architecture</li>
+              <li class="badge">Backend Engineering</li>
+              <li class="badge">UI/UX Strategy</li>
+            </ul>
+          </div>
+          <div class="about-details">
+            <a href="mailto:ugwunekejohn@gmail.com" class="details-email">ugwunekejohn@gmail.com</a>
+            <div class="details-location">
+              <span>Ebonyi, Nigeria</span>
+            </div>
+          </div>
         </div>
-        <div class="about-text">
-          <p>My name is <strong>John Ugwuneke Chiemeziem</strong>. I am a student of
-            Ebonyi State University and a dedicated <strong>Full Stack Developer</strong>.</p>
-          <p>I specialise in designing high-performance digital solutions, ranging from
-            sleek Landing Pages to complex E-commerce ecosystems. My goal is to turn
-            visionary ideas into practical, scalable products that drive growth.</p>
-          <ul class="experience-badges" role="list">
-            <li class="badge">Frontend Architecture</li>
-            <li class="badge">Backend Engineering</li>
-            <li class="badge">UI/UX Strategy</li>
-          </ul>
+
+        <!-- Column 2: Journey Timeline (Middle Panel) -->
+        <div class="about-journey-panel">
+          <h3 class="col-header">Experience</h3>
+          <div class="journey-timeline">
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <p class="timeline-date">2024 - Present</p>
+              <h4 class="timeline-title">Full Stack Engineer</h4>
+              <p class="timeline-org">Freelance & Contract Development</p>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <p class="timeline-date">2023 - 2024</p>
+              <h4 class="timeline-title">Frontend Developer</h4>
+              <p class="timeline-org">Web & Interface Studio</p>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <p class="timeline-date">2022 - 2023</p>
+              <h4 class="timeline-title">UI/UX & Web Developer</h4>
+              <p class="timeline-org">EBONYI Tech Solutions</p>
+            </div>
+          </div>
+          
+          <h3 class="col-header" style="margin-top: 3.5rem;">Education</h3>
+          <div class="journey-timeline">
+            <div class="timeline-item">
+              <div class="timeline-dot" style="background-color: transparent; border-color: var(--accent);"></div>
+              <p class="timeline-date">Undergraduate Degree</p>
+              <h4 class="timeline-title">Computer Science & Engineering</h4>
+              <p class="timeline-org">Ebonyi State University</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Column 3: Skills & Hobbies (Right Panel) -->
+        <div class="about-skills-panel">
+          <h3 class="col-header">Software Skills</h3>
+          <div class="skills-sliders">
+            <div class="skill-slider-item">
+              <div class="skill-slider-info">
+                <span>Frontend Architecture</span>
+                <span>95%</span>
+              </div>
+              <div class="skill-slider-track">
+                <div class="skill-slider-fill" style="width: 95%;">
+                  <div class="skill-slider-node"></div>
+                </div>
+              </div>
+            </div>
+            <div class="skill-slider-item">
+              <div class="skill-slider-info">
+                <span>Backend Engineering</span>
+                <span>90%</span>
+              </div>
+              <div class="skill-slider-track">
+                <div class="skill-slider-fill" style="width: 90%;">
+                  <div class="skill-slider-node"></div>
+                </div>
+              </div>
+            </div>
+            <div class="skill-slider-item">
+              <div class="skill-slider-info">
+                <span>PostgreSQL & MongoDB</span>
+                <span>88%</span>
+              </div>
+              <div class="skill-slider-track">
+                <div class="skill-slider-fill" style="width: 88%;">
+                  <div class="skill-slider-node"></div>
+                </div>
+              </div>
+            </div>
+            <div class="skill-slider-item">
+              <div class="skill-slider-info">
+                <span>UI/UX & Design Sense</span>
+                <span>85%</span>
+              </div>
+              <div class="skill-slider-track">
+                <div class="skill-slider-fill" style="width: 85%;">
+                  <div class="skill-slider-node"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <h3 class="col-header" style="margin-top: 3.5rem;">Hobbies & Interests</h3>
+          <div class="hobbies-grid">
+            <div class="hobby-item">
+              <div class="hobby-circle" aria-hidden="true">💻</div>
+              <span class="hobby-label">Coding</span>
+            </div>
+            <div class="hobby-item">
+              <div class="hobby-circle" aria-hidden="true">📚</div>
+              <span class="hobby-label">Reading</span>
+            </div>
+            <div class="hobby-item">
+              <div class="hobby-circle" aria-hidden="true">📷</div>
+              <span class="hobby-label">Photos</span>
+            </div>
+            <div class="hobby-item">
+              <div class="hobby-circle" aria-hidden="true">☕</div>
+              <span class="hobby-label">Coffee</span>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
     <!-- Projects -->
     <section id="projects" class="section reveal" aria-labelledby="projects-heading">
-      <h2 id="projects-heading">Featured Projects</h2>
+      <h2 id="projects-heading" class="reveal-title"><span>Featured Projects</span></h2>
       <div class="project-grid">
 
         <article class="project-card">
@@ -216,7 +334,7 @@
 
     <!-- Services -->
     <section id="services" class="section reveal" aria-labelledby="services-heading">
-      <h2 id="services-heading">Professional Services</h2>
+      <h2 id="services-heading" class="reveal-title"><span>Professional Services</span></h2>
       <div class="services-grid">
         <div class="service-card">
           <div class="service-icon" aria-hidden="true">🛍️</div>
@@ -244,7 +362,7 @@
     <!-- Contact -->
     <section id="contact" class="section reveal" aria-labelledby="contact-heading">
       <div class="contact-wrap">
-        <h2 id="contact-heading">Let's Start a Project</h2>
+        <h2 id="contact-heading" class="reveal-title"><span>Let's Start a Project</span></h2>
         <p>Looking for a developer to bring your idea to life? Let's connect and build something exceptional.</p>
         <div class="contact-methods">
           <a href="mailto:ugwunekejohn@gmail.com" class="contact-link">ugwunekejohn@gmail.com</a>
