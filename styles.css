@@ -746,3 +746,31 @@ main {
   width: 100%;
   height: 100%;
 }
+
+/* ============================================================
+   SHUFFLE TEXT SCRAMBLE
+   ============================================================ */
+.shuffle-parent {
+  display: inline-block;
+  white-space: normal;
+  word-wrap: break-word;
+  will-change: transform;
+}
+
+.shuffle-char-wrapper {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: baseline;
+  position: relative;
+}
+
+.shuffle-char-inner {
+  display: inline-flex;
+  will-change: transform;
+}
+
+.shuffle-char {
+  line-height: 1.15;
+  display: inline-block;
+  text-align: center;
+}
