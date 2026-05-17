@@ -369,10 +369,23 @@ main {
   border-radius: 50%;
   overflow: hidden;
   margin-inline: auto;
-  border: 4px solid #fff;
+  border: 4px solid var(--line);
   box-shadow: var(--shadow-lg);
+  transition: border-color .3s ease;
 }
-.about-portrait { width: 100%; height: 100%; object-fit: cover; }
+.about-portrait-wrap:hover {
+  border-color: var(--accent);
+}
+.about-portrait {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.2); /* Zoom in the picture slightly */
+  transition: transform .5s cubic-bezier(.4, 0, .2, 1);
+}
+.about-portrait-wrap:hover .about-portrait {
+  transform: scale(1.3); /* Smooth micro-zoom transition */
+}
 .about-text p   { color: var(--muted); margin-bottom: 1rem; }
 .about-text strong { color: var(--text); }
 
