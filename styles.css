@@ -313,20 +313,87 @@ main {
   align-items: center;
   min-height: 480px;
 }
-.hero-portrait-wrap {
+/* Tilted Card layout */
+.tilted-card-figure {
   position: relative;
-  width: min(100%, 360px);
-  aspect-ratio: 4 / 5;
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  box-shadow: var(--shadow-lg);
-  animation: float 6s ease-in-out infinite;
-  background: linear-gradient(135deg, rgba(var(--accent-rgb),.1), rgba(168,85,247,.1));
+  width: 100%;
+  height: 100%;
+  perspective: 1000px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
-.hero-portrait {
+
+.tilted-card-mobile-alert {
+  position: absolute;
+  top: -10px;
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--muted);
+  display: none;
+  background: rgba(10, 10, 12, 0.85);
+  padding: 0.4rem 0.8rem;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--line);
+  z-index: 10;
+}
+
+@media (max-width: 760px) {
+  .tilted-card-mobile-alert {
+    display: block;
+  }
+  .tilted-card-caption {
+    display: none !important;
+  }
+}
+
+.tilted-card-inner {
+  position: relative;
+  width: min(100%, 340px);
+  aspect-ratio: 4 / 5;
+  transform-style: preserve-3d;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.1), rgba(168, 85, 247, 0.1));
+  will-change: transform;
+}
+
+.tilted-card-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  border-radius: var(--radius-lg);
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+.tilted-card-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  transform: translateZ(35px); /* Elegant spatial 3D holographic tag depth! */
+  transform-style: preserve-3d;
+}
+
+.tilted-card-caption {
+  pointer-events: none;
+  position: absolute;
+  left: 0;
+  top: 0;
+  border-radius: var(--radius-sm);
+  background-color: var(--text);
+  border: 1px solid var(--line);
+  padding: 6px 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--bg);
+  opacity: 0;
+  z-index: 10;
+  white-space: nowrap;
+  box-shadow: var(--shadow-md);
+  will-change: transform, opacity;
 }
 .hero-tag {
   position: absolute;
@@ -745,32 +812,4 @@ main {
   display: block;
   width: 100%;
   height: 100%;
-}
-
-/* ============================================================
-   SHUFFLE TEXT SCRAMBLE
-   ============================================================ */
-.shuffle-parent {
-  display: inline-block;
-  white-space: normal;
-  word-wrap: break-word;
-  will-change: transform;
-}
-
-.shuffle-char-wrapper {
-  display: inline-block;
-  overflow: hidden;
-  vertical-align: baseline;
-  position: relative;
-}
-
-.shuffle-char-inner {
-  display: inline-flex;
-  will-change: transform;
-}
-
-.shuffle-char {
-  line-height: 1.15;
-  display: inline-block;
-  text-align: center;
 }
