@@ -1,390 +1,190 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#5b68dd" />
   <meta name="description" content="John Ugwuneke – Full Stack Developer specialising in e-commerce, FinTech dashboards, and high-converting landing pages." />
   <title>John Ugwuneke | Full Stack Developer</title>
 
-  <!-- Fonts -->
+  <meta property="og:title" content="John Ugwuneke | Full Stack Developer" />
+  <meta property="og:description" content="Full Stack Developer building e-commerce, FinTech dashboards, and landing pages." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="/portrait.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet" />
-
   <link rel="stylesheet" href="styles.css" />
 </head>
 
 <body>
-  <div id="scroll-progress" class="scroll-progress-bar" aria-hidden="true"></div>
+  <a class="skip-link" href="#main">Skip to main content</a>
 
-  <!-- Ambient background orbs -->
   <div class="bg-orb orb-1" aria-hidden="true"></div>
   <div class="bg-orb orb-2" aria-hidden="true"></div>
-  <div class="bg-orb orb-3" aria-hidden="true"></div>
 
-  <a class="skip-link" href="#main-content">Skip to main content</a>
-
-  <!-- ─── HEADER / NAV ───────────────────────────────────────── -->
-  <header class="site-header" id="home">
+  <header class="site-header">
     <nav class="site-nav" aria-label="Main navigation">
-      <div class="nav-container">
-        <span class="brand" aria-label="John Ugwuneke Portfolio">JU.</span>
-        <ul class="nav-list" role="list">
-          <li><a href="#home">Home</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#projects">Projects</a></li>
-          <li><a href="#services">Services</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
-      </div>
-    </nav>
+      <a href="#home" class="brand">JU.</a>
 
-    <!-- ─── HERO ────────────────────────────────────────────── -->
-    <section class="hero reveal" aria-label="Introduction">
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-menu" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+
+      <ul id="primary-menu" class="nav-list">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main">
+
+    <section id="home" class="hero reveal" aria-label="Introduction">
       <div class="hero-copy">
         <p class="hero-kicker">Digital Architect &amp; Visionary</p>
-        <h1>I Build <span class="text-gradient" id="typewriter-text">Experiences</span><span class="typewriter-cursor" aria-hidden="true">|</span><br>That Shape the Future</h1>
+        <h1>I Build <span class="text-gradient">Experiences</span> That Shape the Future</h1>
         <p class="hero-desc">
           Transforming complex challenges into elegant digital solutions.
           Specialising in high-performance web applications that merge stunning
           design with flawless engineering.
         </p>
         <div class="hero-actions">
-          <a class="btn btn-glow" href="#contact">Start a Project</a>
+          <a class="btn btn-primary" href="#contact">Start a Project</a>
           <a class="btn btn-ghost" href="#projects">View Works</a>
         </div>
 
         <dl class="hero-stats">
-          <div class="stat-card">
-            <dt>3+</dt>
-            <dd>Years Experience</dd>
-          </div>
-          <div class="stat-card">
-            <dt>25+</dt>
-            <dd>Successful Launches</dd>
-          </div>
-          <div class="stat-card">
-            <dt>99%</dt>
-            <dd>Client Satisfaction</dd>
-          </div>
+          <div class="stat-card"><dt>3+</dt><dd>Years Experience</dd></div>
+          <div class="stat-card"><dt>25+</dt><dd>Successful Launches</dd></div>
+          <div class="stat-card"><dt>99%</dt><dd>Client Satisfaction</dd></div>
         </dl>
       </div>
 
-      <figure class="hero-visual" aria-label="Developer portrait">
-        <div class="hero-portrait-float">
-          <div class="hero-portrait-wrap">
-            <img
-              class="hero-portrait"
-              src="WhatsApp Image 2026-02-21 at 7.59.00 PM.jpeg"
-              alt="John Ugwuneke – Full Stack Developer"
-              width="450"
-              height="562"
-              loading="eager"
-            />
-            <div class="image-overlay" aria-hidden="true"></div>
-          </div>
+      <figure class="hero-visual">
+        <div class="hero-portrait-wrap">
+          <img
+            class="hero-portrait"
+            src="WhatsApp Image 2026-02-21 at 7.59.00 PM.jpeg"
+            alt="John Ugwuneke – Full Stack Developer"
+            width="450" height="562" loading="eager" fetchpriority="high"
+          />
         </div>
         <span class="hero-tag tag-one">E-commerce</span>
         <span class="hero-tag tag-two">Landing Pages</span>
         <span class="hero-tag tag-three">FinTech</span>
       </figure>
-
-      <div class="scroll-indicator" aria-hidden="true">
-        <div class="mouse">
-          <div class="wheel"></div>
-        </div>
-      </div>
     </section>
-  </header>
 
-  <!-- ─── MAIN ────────────────────────────────────────────────── -->
-  <main id="main-content">
-
-    <!-- About -->
     <section id="about" class="section reveal" aria-labelledby="about-heading">
-      <h2 id="about-heading" class="reveal-title"><span>About Me</span></h2>
-      
-      <div class="about-content-grid">
-        <!-- Column 1: Bio & Details (Left Panel) -->
-        <div class="about-bio-panel">
-          <div class="about-portrait-wrap">
-            <img
-              class="about-portrait"
-              src="WhatsApp Image 2026-02-21 at 7.59.00 PM.jpeg"
-              alt="Portrait of John Ugwuneke Chiemeziem"
-              width="320"
-              height="400"
-              loading="lazy"
-            />
-          </div>
-          <div class="about-text" style="margin-top: 1.75rem;">
-            <p>My name is <strong>John Ugwuneke Chiemeziem</strong>. I am a student of
-              Ebonyi State University and a dedicated <strong>Full Stack Developer</strong>.</p>
-            <p>I specialise in designing high-performance digital solutions, ranging from
-              sleek Landing Pages to complex E-commerce ecosystems. My goal is to turn
-              visionary ideas into practical, scalable products that drive growth.</p>
-            <ul class="experience-badges" role="list">
-              <li class="badge">Frontend Architecture</li>
-              <li class="badge">Backend Engineering</li>
-              <li class="badge">UI/UX Strategy</li>
-            </ul>
-          </div>
-          <div class="about-details">
-            <a href="mailto:ugwunekejohn@gmail.com" class="details-email">ugwunekejohn@gmail.com</a>
-            <div class="details-location">
-              <span>Ebonyi, Nigeria</span>
-            </div>
-          </div>
+      <h2 id="about-heading">About Me</h2>
+      <div class="about-content">
+        <div class="about-portrait-wrap">
+          <img class="about-portrait" src="WhatsApp Image 2026-02-21 at 7.59.00 PM.jpeg"
+               alt="Portrait of John Ugwuneke Chiemeziem"
+               width="320" height="400" loading="lazy" />
         </div>
-
-        <!-- Column 2: Journey Timeline (Middle Panel) -->
-        <div class="about-journey-panel">
-          <h3 class="col-header">Experience</h3>
-          <div class="journey-timeline">
-            <div class="timeline-item">
-              <div class="timeline-dot"></div>
-              <p class="timeline-date">2024 - Present</p>
-              <h4 class="timeline-title">Full Stack Engineer</h4>
-              <p class="timeline-org">Freelance & Contract Development</p>
-            </div>
-            <div class="timeline-item">
-              <div class="timeline-dot"></div>
-              <p class="timeline-date">2023 - 2024</p>
-              <h4 class="timeline-title">Frontend Developer</h4>
-              <p class="timeline-org">Web & Interface Studio</p>
-            </div>
-            <div class="timeline-item">
-              <div class="timeline-dot"></div>
-              <p class="timeline-date">2022 - 2023</p>
-              <h4 class="timeline-title">UI/UX & Web Developer</h4>
-              <p class="timeline-org">EBONYI Tech Solutions</p>
-            </div>
-          </div>
-          
-          <h3 class="col-header" style="margin-top: 3.5rem;">Education</h3>
-          <div class="journey-timeline">
-            <div class="timeline-item">
-              <div class="timeline-dot" style="background-color: transparent; border-color: var(--accent);"></div>
-              <p class="timeline-date">Undergraduate Degree</p>
-              <h4 class="timeline-title">Computer Science & Engineering</h4>
-              <p class="timeline-org">Ebonyi State University</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Column 3: Skills & Hobbies (Right Panel) -->
-        <div class="about-skills-panel">
-          <h3 class="col-header">Software Skills</h3>
-          <div class="skills-sliders">
-            <div class="skill-slider-item">
-              <div class="skill-slider-info">
-                <span>Frontend Architecture</span>
-                <span>95%</span>
-              </div>
-              <div class="skill-slider-track">
-                <div class="skill-slider-fill" style="width: 95%;">
-                  <div class="skill-slider-node"></div>
-                </div>
-              </div>
-            </div>
-            <div class="skill-slider-item">
-              <div class="skill-slider-info">
-                <span>Backend Engineering</span>
-                <span>90%</span>
-              </div>
-              <div class="skill-slider-track">
-                <div class="skill-slider-fill" style="width: 90%;">
-                  <div class="skill-slider-node"></div>
-                </div>
-              </div>
-            </div>
-            <div class="skill-slider-item">
-              <div class="skill-slider-info">
-                <span>PostgreSQL & MongoDB</span>
-                <span>88%</span>
-              </div>
-              <div class="skill-slider-track">
-                <div class="skill-slider-fill" style="width: 88%;">
-                  <div class="skill-slider-node"></div>
-                </div>
-              </div>
-            </div>
-            <div class="skill-slider-item">
-              <div class="skill-slider-info">
-                <span>UI/UX & Design Sense</span>
-                <span>85%</span>
-              </div>
-              <div class="skill-slider-track">
-                <div class="skill-slider-fill" style="width: 85%;">
-                  <div class="skill-slider-node"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <h3 class="col-header" style="margin-top: 3.5rem;">Hobbies & Interests</h3>
-          <div class="hobbies-grid">
-            <div class="hobby-item">
-              <div class="hobby-circle" aria-hidden="true">💻</div>
-              <span class="hobby-label">Coding</span>
-            </div>
-            <div class="hobby-item">
-              <div class="hobby-circle" aria-hidden="true">📚</div>
-              <span class="hobby-label">Reading</span>
-            </div>
-            <div class="hobby-item">
-              <div class="hobby-circle" aria-hidden="true">📷</div>
-              <span class="hobby-label">Photos</span>
-            </div>
-            <div class="hobby-item">
-              <div class="hobby-circle" aria-hidden="true">☕</div>
-              <span class="hobby-label">Coffee</span>
-            </div>
-          </div>
+        <div class="about-text">
+          <p>My name is <strong>John Ugwuneke Chiemeziem</strong>. I am a student of
+            Ebonyi State University and a dedicated <strong>Full Stack Developer</strong>.</p>
+          <p>I specialise in designing high-performance digital solutions, ranging from
+            sleek landing pages to complex e-commerce ecosystems. My goal is to turn
+            visionary ideas into practical, scalable products that drive growth.</p>
+          <ul class="experience-badges">
+            <li class="badge">Frontend Architecture</li>
+            <li class="badge">Backend Engineering</li>
+            <li class="badge">UI/UX Strategy</li>
+          </ul>
         </div>
       </div>
     </section>
 
-    <!-- Projects -->
     <section id="projects" class="section reveal" aria-labelledby="projects-heading">
-      <h2 id="projects-heading" class="reveal-title"><span>Featured Projects</span></h2>
+      <h2 id="projects-heading">Featured Projects</h2>
       <div class="project-grid">
 
         <article class="project-card">
-          <div class="card-inner">
-            <div class="project-img-wrap">
-              <img
-                class="project-image"
-                src="project-1.jpg"
-                alt="E-commerce Engine – high-performance online store"
-                width="400"
-                height="240"
-                loading="lazy"
-                onerror="this.closest('.project-img-wrap').classList.add('img-missing')"
-              />
-              <div class="img-placeholder" aria-hidden="true">
-                <span>🛍️</span>
-              </div>
-            </div>
-            <div class="card-content">
-              <h3>E-commerce Engine</h3>
-              <p>A high-performance online store with seamless checkout experience.</p>
-              <a href="#" class="project-link" aria-label="View E-commerce Engine case study">
-                View Case Study <span aria-hidden="true">→</span>
-              </a>
-            </div>
+          <div class="project-img-wrap" data-emoji="🛍️"></div>
+          <div class="card-content">
+            <h3>E-commerce Engine</h3>
+            <p>A high-performance online store with a seamless checkout experience.</p>
+            <a href="#" class="project-link">View Case Study <span aria-hidden="true">→</span></a>
           </div>
         </article>
 
         <article class="project-card">
-          <div class="card-inner">
-            <div class="project-img-wrap">
-              <img
-                class="project-image"
-                src="project-2.jpg"
-                alt="FinTech Dashboard – secure investment platform"
-                width="400"
-                height="240"
-                loading="lazy"
-                onerror="this.closest('.project-img-wrap').classList.add('img-missing')"
-              />
-              <div class="img-placeholder" aria-hidden="true">
-                <span>📈</span>
-              </div>
-            </div>
-            <div class="card-content">
-              <h3>FinTech Dashboard</h3>
-              <p>Secure investment platform with real-time analytics and reporting.</p>
-              <a href="#" class="project-link" aria-label="View FinTech Dashboard case study">
-                View Case Study <span aria-hidden="true">→</span>
-              </a>
-            </div>
+          <div class="project-img-wrap" data-emoji="📈"></div>
+          <div class="card-content">
+            <h3>FinTech Dashboard</h3>
+            <p>Secure investment platform with real-time analytics and reporting.</p>
+            <a href="#" class="project-link">View Case Study <span aria-hidden="true">→</span></a>
           </div>
         </article>
 
         <article class="project-card">
-          <div class="card-inner">
-            <div class="project-img-wrap">
-              <img
-                class="project-image"
-                src="project-3.jpg"
-                alt="Brand Showcase – premium corporate landing page"
-                width="400"
-                height="240"
-                loading="lazy"
-                onerror="this.closest('.project-img-wrap').classList.add('img-missing')"
-              />
-              <div class="img-placeholder" aria-hidden="true">
-                <span>💼</span>
-              </div>
-            </div>
-            <div class="card-content">
-              <h3>Brand Showcase</h3>
-              <p>Premium corporate landing page crafted for ambitious tech startups.</p>
-              <a href="#" class="project-link" aria-label="View Brand Showcase case study">
-                View Case Study <span aria-hidden="true">→</span>
-              </a>
-            </div>
+          <div class="project-img-wrap" data-emoji="💼"></div>
+          <div class="card-content">
+            <h3>Brand Showcase</h3>
+            <p>Premium corporate landing page crafted for ambitious tech startups.</p>
+            <a href="#" class="project-link">View Case Study <span aria-hidden="true">→</span></a>
           </div>
         </article>
 
       </div>
     </section>
 
-    <!-- Services -->
     <section id="services" class="section reveal" aria-labelledby="services-heading">
-      <h2 id="services-heading" class="reveal-title"><span>Professional Services</span></h2>
+      <h2 id="services-heading">Professional Services</h2>
       <div class="services-grid">
-        <div class="service-card">
+        <article class="service-card">
           <div class="service-icon" aria-hidden="true">🛍️</div>
           <h3>E-commerce</h3>
           <p>Scale your business with high-converting online stores and secure payment gateways.</p>
-        </div>
-        <div class="service-card">
+        </article>
+        <article class="service-card">
           <div class="service-icon" aria-hidden="true">🚀</div>
           <h3>Landing Pages</h3>
-          <p>Beautiful, fast, and optimised landing pages designed to turn visitors into customers.</p>
-        </div>
-        <div class="service-card">
+          <p>Beautiful, fast, optimised landing pages designed to turn visitors into customers.</p>
+        </article>
+        <article class="service-card">
           <div class="service-icon" aria-hidden="true">📈</div>
           <h3>Investment Sites</h3>
-          <p>Secure and professional platforms for financial services and investment tracking.</p>
-        </div>
-        <div class="service-card">
+          <p>Secure professional platforms for financial services and investment tracking.</p>
+        </article>
+        <article class="service-card">
           <div class="service-icon" aria-hidden="true">💼</div>
           <h3>Business Portfolios</h3>
           <p>Establish your digital presence with a corporate website that reflects your brand.</p>
-        </div>
+        </article>
       </div>
     </section>
 
-    <!-- Contact -->
     <section id="contact" class="section reveal" aria-labelledby="contact-heading">
       <div class="contact-wrap">
-        <h2 id="contact-heading" class="reveal-title"><span>Let's Start a Project</span></h2>
+        <h2 id="contact-heading">Let's Start a Project</h2>
         <p>Looking for a developer to bring your idea to life? Let's connect and build something exceptional.</p>
         <div class="contact-methods">
           <a href="mailto:ugwunekejohn@gmail.com" class="contact-link">ugwunekejohn@gmail.com</a>
           <a href="tel:+2349160641195" class="contact-link">+234 916 064 1195</a>
         </div>
-        <button type="button" id="contactBtn" class="btn btn-outline-white">Say Hello</button>
-        <p id="helloMessage" class="hello-message" aria-live="polite" hidden>
-          Thanks for reaching out! I'll get back to you soon. 🙌
+        <button type="button" id="copyEmailBtn" class="btn btn-primary">Copy Email</button>
+        <p id="copyMessage" class="hello-message" aria-live="polite" hidden>
+          Email copied to clipboard ✓
         </p>
       </div>
     </section>
 
   </main>
 
-  <!-- ─── FOOTER ──────────────────────────────────────────────── -->
   <footer class="site-footer">
-    <div class="footer-content">
-      <p>&copy; <span id="year"></span> John Ugwuneke. All rights reserved.</p>
-    </div>
+    <p>&copy; <span id="year"></span> John Ugwuneke. All rights reserved.</p>
   </footer>
 
-  <script src="script.js"></script>
+  <script src="script.js" defer></script>
 </body>
-
 </html>
