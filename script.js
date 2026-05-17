@@ -89,4 +89,33 @@
     }, { rootMargin: "-40% 0px -55% 0px" });
     sections.forEach(function (s) { spy.observe(s); });
   }
+
+  // ── Border Glow Cards (React Bits Integration) ───────
+  var glowCards = document.querySelectorAll(".border-glow-card");
+  glowCards.forEach(function (card) {
+    card.addEventListener("pointermove", function (e) {
+      var rect = card.getBoundingClientRect();
+      var x = e.clientX - rect.left;
+      var y = e.clientY - rect.top;
+
+      // Center coordinates of the card
+      var cx = rect.width / 2;
+      var cy = rect.height / 2;
+
+      // Distance mapping to edge coordinates
+      var dx = x - cx;
+      var dy = y - cy;
+      var kx = dx !== 0 ? cx / Math.abs(dx) : Infinity;
+      var ky = dy !== 0 ? cy / Math.abs(dy) : Infinity;
+      var edge = Math.min(Math.max(1 / Math.min(kx, ky), 0), 1);
+
+      // Calculate cursor angle relative to center in degrees
+      var radians = Math.atan2(dy, dx);
+      var angle = radians * (180 / Math.PI) + 90;
+      if (angle < 0) angle += 360;
+
+      card.style.setProperty("--edge-proximity", (edge * 100).toFixed(3));
+      card.style.setProperty("--cursor-angle", angle.toFixed(3) + "deg");
+    });
+  });
 })();
