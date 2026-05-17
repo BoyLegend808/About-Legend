@@ -215,6 +215,9 @@ main {
    HERO
    ============================================================ */
 .hero {
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
   display: grid;
   grid-template-columns: 1.1fr .9fr;
   gap: 3rem;
@@ -725,4 +728,21 @@ main {
   z-index: -1;
   pointer-events: none;
   background-color: #030303;
+}
+
+/* ============================================================
+   LETTER GLITCH BACKPLATE
+   ============================================================ */
+.hero-glitch-bg {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.12; /* Delicate retro cyberpunk ambient grid overlay */
+  overflow: hidden;
+}
+.hero-glitch-bg canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
